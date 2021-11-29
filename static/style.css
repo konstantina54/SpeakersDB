@@ -1,0 +1,72 @@
+body {
+  font-family: "Avenir Next W02", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+a {
+  color: #0091ae;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  border: solid 1px #dfe3eb;
+  color: #374659;
+}
+
+th {
+  background: #dfe3eb;
+  border-bottom: solid 1px #dfe3eb;
+  padding: 20px 10px;
+  text-align: left;
+}
+
+td {
+  border-bottom: solid 1px #dfe3eb;
+  padding: 20px 10px;
+}
+
+.TNButton {
+  display: inline-block;
+  background: #ff7a59;
+  padding-top: 11px;
+  padding-right: 24px;
+  padding-bottom: 11px;
+  padding-left: 24px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  width: 150px;
+  text-align: center;
+}
+
+.TNButton.light {
+  background: white;
+  color: #374659;
+  border: solid 1px #374659;
+}
+
+.TNButton.danger {
+  background: #da431d;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+input {
+  display: inline-block;
+  width: 200px;
+}
+
+button {
+  width: 150px;
+}
+
+select {
+  width: 200px;
+}
