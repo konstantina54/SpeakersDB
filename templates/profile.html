@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Speaker DB</title>
+  </head>
+  <body>
+  <form action="submit" method="post">
+      <h3>Profile</h3>
+      <img
+        src="https://alfordtirecenter.com/images/display/512/Under%20Construction.jpg"
+        alt="Name"
+        width="160"
+        height="142"
+        style="float:left"
+      />
+      <p>Attended Events:<p>
+      {% for events in events %} {% if events[0] == 1 %}
+            <li>{{ events[2] }} - {{ events[3] }}</li>
+            {% endif %} {% endfor %}
+      <br/>
+      <input type="hidden" id="id" name="id" value="{{speaker_details[17]}}" />
+      <p>Speaking at Following Events:<p>
+      {% for events in events %} {% if events[1] == 'Confirmed' %}
+            <li>{{ events[2] }} - {{ events[3] }}</li>
+            {% endif %} {% endfor %}
+      <br/><br/><br/>
+      <label for="notes">Notes:</label><br />
+      <input type="text" id="notes" name="notes" value = "{{speaker_details[12]}}" /><br />
+      <label for="rating">Rating:</label><br />
+      <input type="text" id="rating" name="rating" value = "{{speaker_details[10]}}" /><br /><br />
+      <h4>Personal Information</h4>
+      <label for="first_name">Name:</label>
+      <input
+        type="text"
+        id="first_name"
+        name="first_name"
+        value="{{speaker_details[1]}}"
+      />
+      <input
+        type="text"
+        id="last_name"
+        name="last_name"
+        value="{{speaker_details[2]}}"
+      />
+      <br>
+       <label for="job_title_hubspot">Job Title:</label>
+        <input
+          type="text"
+          id="job_title_hubspot"
+          name="job_title_hubspot"
+          value="{{speaker_details[3]}}"
+        />
+        <br>
+       <label for="email">Email:</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value="{{speaker_details[0]}}"
+        />
+            <br>
+       <label for="linkedin_hubspot">LinkedIN:</label>
+        <input
+          type="text"
+          id="linkedin_hubspot"
+          name="linkedin_hubspot"
+          value="{{speaker_details[4]}}"
+        />
+          <br>
+        <label for="twitter_hubspot">Twitter account:</label>
+        <input
+          type="text"
+          id="twitter_hubspot"
+          name="twitter_hubspot"
+          value="{{speaker_details[5]}}"
+        />
+          <br>
+       <label for="bio">Bio:</label>
+        <input
+          type="text"
+          id="bio"
+          name="bio"
+          value="{{speaker_details[15]}}"
+        />
+        <br>
+       <label for="gender_hubspot">Gender:</label>
+        <input
+          type="text"
+          id="gender_hubspot"
+          name="gender_hubspot"
+          value="{{speaker_details[7]}}"
+        />
+        <br>
+       <label for="contact_owner_hubspot">Contact Owner:</label>
+        <input
+          type="text"
+          id="contact_owner_hubspot"
+          name="contact_owner_hubspot"
+          value="{{speaker_details[6]}}"
+        />
+      <p>PA email</p>
+      <p>Date profile last reviewed</p>
+        <label for="source_hubspot">Record Source:</label>
+        <input
+          type="text"
+          id="source_hubspot"
+          name="source_hubspot"
+          value="{{speaker_details[9]}}"
+        />
+          <br>
+      <h4>Company Information</h4>
+    {% if speaker_company_info: %}
+           <label for="name">Company Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{speaker_company_info[0][1]}}"
+        /><br>
+          <label for="website">Webpage:</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          value="{{speaker_company_info[0][4]}}"
+        /><br>
+          <label for="tech_sector">Tech sector:</label>
+        <input
+          type="text"
+          id="tech_sector"
+          name="tech_sector"
+          value="{{speaker_company_info[0][6]}}"
+        /><br>
+          <label for="city">Company city:</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          value="{{speaker_company_info[0][2]}}"
+        /><br>
+          <label for="uk_region">Company region:</label>
+        <input
+          type="text"
+          id="uk_region"
+          name="uk_region"
+          value="{{speaker_company_info[0][3]}}"
+        /><br>
+          <label for="company_type">Company Type:</label>
+        <input
+          type="text"
+          id="company_type"
+          name="company_type"
+          value="{{speaker_company_info[0][5]}}"
+        /><br>
+    {% else %}
+        <br/>
+        <label for="name">Company Name:</label>
+        <input
+          type="text"
+          name="name"
+          value=""
+        /><br>
+          <label for="website">Webpage:</label>
+        <input
+          type="text"
+          name="website"
+          value=""
+        /><br>
+          <label for="tech_sector">Tech sector:</label>
+        <input
+          type="text"
+          name="tech_sector"
+          value=""
+        /><br>
+          <label for="city">Company city:</label>
+        <input
+          type="text"
+          name="city"
+          value=""
+        /><br>
+          <label for="uk_region">Company region:</label>
+        <input
+          type="text"
+          name="uk_region"
+          value=""
+        /><br>
+          <label for="company_type">Company Type:</label>
+        <input
+          type="text"
+          name="company_type"
+          value=""
+        /><br>
+    {% endif %}
+      <p>Involvement</p>
+      <div id="speaker_form" style="display: block;">
+      <h4>Speaker Form</h4>
+
+       <label for="speaker_areas">Happy to speak about the following areas:</label>
+        <input
+          type="text"
+          id="speaker_areas"
+          value="{{speaker_details[20]}}" readonly
+        />
+       <br>
+       <label for="speaker_areasO">Other topics:</label>
+        <input
+          type="text"
+          id="speaker_areasO"
+          value="{{speaker_details[21]}}" readonly
+        />
+        <br>
+       <label for="interested_in">Interested in:</label>
+        <input
+          type="text"
+          id="interested_in"
+          value="{{speaker_details[22]}}" readonly
+        />
+        <br>
+       <label for="speaker_form_date">Speaker form submitted date:</label>
+        <input
+          type="date"
+          id="speaker_form_date"
+          value="{{speaker_details[24]}}" readonly
+        />
+       <br>
+       <label for="dni_forwarded">Diversity and Inclusion Form forwarded:</label>
+      {% if speaker_details[23] == 'Yes' or speaker_details[23] == 'true' %}
+        <input
+          type="text"
+          id="dni_forwarded"
+          value="Yes"
+          readonly
+        />
+      {% else %}
+         <input
+          type="text"
+          id="dni_forwarded"
+          value="No"
+          readonly
+        />
+      {% endif %}
+      </div>
+      <h4>D&I Topics</h4>
+       <label for="DnI_interests">D&I Area of interest:</label>
+        <input
+          type="text"
+          id="DnI_interests"
+          name="DnI_interests"
+          value="{{speaker_details[14]}}"
+        />
+       <br>
+        <label for="DnI_expertise">D&I Area of expertise:</label>
+        <input
+          type="text"
+          id="DnI_expertise"
+          name="DnI_expertise"
+          value="{{speaker_details[13]}}"
+        />
+       <br>
+      <div id="dni_form">
+      <h4>D&I Form</h4>
+       <label for="dni_yob">Year of birth:</label>
+        <input
+          type="text"
+          id="dni_yob"
+          value="{{speaker_details[25]}}"
+          readonly
+        />
+       <br>
+         <label for="dni_pronoun">Pronoun:</label>
+        <input
+          type="text"
+          id="dni_pronoun"
+          value="{{speaker_details[26]}}"
+          readonly
+        />
+         <label for="dni_pronoun_other">Other:</label>
+        <input
+          type="text"
+          id="dni_pronoun_other"
+          value="{{speaker_details[27]}}"
+          readonly
+        />
+      <br>
+         <label for="dni_identify">How would you identify yourself:</label>
+        <input
+          type="text"
+          id="dni_identify"
+          value="{{speaker_details[28]}}"
+          readonly
+        />
+         <label for="dni_identify_other">Other:</label>
+        <input
+          type="text"
+          id="dni_identify_other"
+          value="{{speaker_details[29]}}"
+          readonly
+        />
+      <br>
+         <label for="dni_sexuality">Sexual Orientation:</label>
+        <input
+          type="text"
+          id="dni_sexuality"
+          value="{{speaker_details[30]}}"
+          readonly
+        />
+        <label for="dni_sexuality_other">Other:</label>
+        <input
+          type="text"
+          id="dni_sexuality_other"
+          value="{{speaker_details[31]}}"
+          readonly
+        />
+      <br>
+        <label for="dni_country">Country of origin:</label>
+        <input
+          type="text"
+          id="dni_country"
+          value="{{speaker_details[32]}}"
+          readonly
+        />
+       <br>
+        <label for="dni_nationality">Nationality:</label>
+        <input
+          type="text"
+          id="dni_nationality"
+          value="{{speaker_details[33]}}"
+          readonly
+        />
+       <br>
+        <label for="dni_ethnicity">Ethnicity:</label>
+        <input
+          type="text"
+          id="dni_ethnicity"
+          value="{{speaker_details[34]}}"
+          readonly
+        />
+       <br>
+        <label for="dni_ethnicity_other">Other:</label>
+        <input
+          type="text"
+          id="dni_ethnicity_other"
+          value="{{speaker_details[35]}}"
+          readonly
+        />
+      <br>
+        <label for="dni_disability">Disability:</label>
+        <input
+          type="text"
+          id="dni_disability"
+          value="{{speaker_details[36]}}"
+          readonly
+        />
+      <br>
+        <label for="dni_neurodivergent">Neurodivergent:</label>
+        <input
+          type="text"
+          id="dni_neurodivergent"
+          value="{{speaker_details[37]}}"
+          readonly
+        /><br>
+        <label for="dni_religion">Religion:</label>
+        <input
+          type="text"
+          id="dni_religion"
+          value="{{speaker_details[38]}}"
+          readonly
+        />
+       <label for="dni_religion_other">Other:</label>
+        <input
+          type="text"
+          id="dni_religion_other"
+          value="{{speaker_details[39]}}"
+          readonly
+        /><br>
+       <label for="dni_school">School type between 11 and 16:</label>
+        <input
+          type="text"
+          id="dni_school"
+          value="{{speaker_details[40]}}"
+          readonly
+        />
+      <label for="dni_school_other">Other:</label>
+        <input
+          type="text"
+          id="dni_school_other"
+          value="{{speaker_details[41]}}"
+          readonly
+        /><br>
+      <label for="dni_parent_qualification">Parent Qualification:</label>
+        <input
+          type="text"
+          id="dni_parent_qualification"
+          value="{{speaker_details[42]}}"
+          readonly
+        />
+      <label for="dni_parent_qualification_other">Other:</label>
+        <input
+          type="text"
+          id="dni_parent_qualification_other"
+          value="{{speaker_details[43]}}"
+          readonly
+        />
+      <br>
+      <label for="dni_form_date">D&I form submitted date:</label>
+        <input
+          type="date"
+          id="dni_form_date"
+          value="{{speaker_details[44]}}" readonly
+        />
+       <br>
+      </div>
+    <br>
+    <input class="TNButton" type="submit" name="update" value="Update" />
+    <a href="./">Return to list</a>
+    </form>
+    <script>
+        var dni_form_submitted = document.getElementById("dni_forwarded");
+        console.log(dni_form_submitted.value);
+        if (dni_form_submitted.value === 'No'){
+            document.getElementById("dni_form").style.display = 'none';
+
+        }
+        var speaker_form_submitted = document.getElementById("speaker_form_date");
+        console.log(speaker_form_submitted.value);
+        if (speaker_form_submitted.value === ''){
+            document.getElementById("speaker_form").style.display = 'none';
+
+        }
+
+
+    </script>
+  <br><br>
+  </body>
+</html>

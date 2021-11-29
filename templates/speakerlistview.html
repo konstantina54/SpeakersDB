@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Speakers DB</title>
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Speakers List</h1>
+    <div><a href="/logout">Logout</a></div>
+    <input
+      type="text"
+      id="myInput"
+      onkeyup="myFunction()"
+      placeholder="Search.."
+    />
+    <select id="search" name="search">
+      <option value="0" selected>Name</option>
+      <option value="1">Job Title</option>
+      <option value="3">Rating</option>
+      <option value="4">Gender</option>
+      <option value="5">Previous Events</option>
+      <option value="8">Company</option>
+      <option value="9">Company Type</option>
+      <option value="10">Tech Sector</option>
+      <option value="7">Speaker Form Submitted</option>
+    </select>
+    <a class="TNButton" href="./add">Add new speaker</a>
+
+    <table id="myTable">
+      <tr class="header">
+        <th>Name</th>
+        <th>Job Title</th>
+        <th>Last Contacted</th>
+        <th>Rating</th>
+        <th>Gender</th>
+        <th>Previous events</th>
+        <th>D&I Area of Expertise</th>
+        <th>Speaker Form Submitted</th>
+        <th>Company</th>
+        <th>Company Type</th>
+        <th>Tech Sector</th>
+      </tr>
+      {% for speakers in speakers %}
+      <tr>
+        <td>
+          <a href="./profile?id={{speakers[12]}}">{{ speakers[1] }} {{ speakers[2] }}</a>
+        </td>
+        <td>{{ speakers[3] }}</td>
+        <td>{{ speakers[7] }}</td>
+        {% if not speakers[6] %}
+        <td></td>
+        {% else %}
+        <td>{{ speakers[6] }}</td>
+        {% endif %}
+        {% if not speakers[4] %}
+        <td></td>
+        {% else %}
+        <td>{{ speakers[4] }}</td>
+        {% endif %}
+        <td>
+          <ul style="list-style-type:none">
+            {% for events in events %} {% if events[1] == speakers[12] %}
+            <li>{{ events[2] }} - {{ events[3] }}</li>
+            {% endif %} {% endfor %}
+          </ul>
+         {% if not speakers[10] %}
+        <td></td>
+        {% else %}
+        <td>{{ speakers[10] }}</td>
+        {% endif %}
+        {% for consent in speaker_form %}
+          {% if consent[2] == speakers[12] and (consent[3]=='Yes' or consent[3]=='true') %}
+            <td>Yes</td>
+          {% elif consent[2] == speakers[12] and (consent[3]=='No' or consent[3]=='false') %}
+            <td>No</td>
+          {% elif consent[2] == speakers[12] and not consent[3] %}
+          <td> - </td>
+          {% endif %} {% endfor %}
+          {% for org in org %} {% if org[3] == speakers[11] %}
+        <td>{{ org[0] }}</td>
+        <td>{{ org[1] }}</td>
+        <td>{{ org[2] }}</td>
+        {% endif %} {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue, search_column, v;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        v = document.getElementById("search");
+        selected_column = v.value;
+        console.log(selected_column);
+
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[selected_column];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

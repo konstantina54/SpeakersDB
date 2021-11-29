@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Speaker DB</title>
+  </head>
+  <body>
+    <div class="search-section">
+      <h1>Add speakers</h1>
+      <form action="submit" method="post">
+        <label for="speakerFN">Search for speaker first and last name:</label>
+        <input type="text" id="speakerFN" name="speakerFN" />
+        <input type="text" id="speakerLN" name="speakerLN" />
+        <input type="submit" name="search" value="Search" />
+        <br /><br />
+        <label for="Sname">Results:</label>
+        <select id="Sname" name="Sname" onchange="dropdownOnChange()">
+          <option value="?"></option>
+          {% for y in speakers %}
+          <option value="{{y[2]}}">{{ y[0] }} - {{ y[1] }}</option>
+          {% endfor %}
+        </select>
+        <br />
+        <br />
+        <input
+          type="checkbox"
+          id="new_speaker"
+          name="new_speaker"
+          onclick="newSpeaker()"
+        />
+        <label for="new_speaker"> I want to add new speaker</label><br />
+      </form>
+    </div>
+
+    <h2>Profile</h2>
+    <h3>Personal Information</h3>
+    <div id="row2" style="display: none;">
+      <form action="submit" method="post" enctype="multipart/form-data">
+        <label for="fname">First Name: </label>
+        <input type="text" id="fname" name="fname" value="" />
+        <label for="lname">Last Name: </label>
+        <input type="text" id="lname" name="lname" value="" />
+        <input type="hidden" id="newSpeaker2" name="newSpeaker2" value="" />
+
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email" value="" required />
+
+        <label for="job_title">Job Title: </label>
+        <input type="text" id="job_title" name="job_title" value="" />
+
+        <label for="rating">Rating: </label>
+        <input type="text" id="rating" name="rating" value="" />
+
+        <label for="gender">Gender: </label>
+        <input type="text" id="gender" name="gender" value="" />
+
+        <label for="twitter">Twitter: </label>
+        <input type="text" id="twitter" name="twitter" value="" />
+
+        <label for="linkedin">LinkedIn: </label>
+        <input type="text" id="linkedin" name="linkedin" value="" />
+
+        <label for="contact_owner">Contact_owner: </label>
+        <input type="text" id="contact_owner" name="contact_owner" value="" />
+
+        <label for="last_engaged">Last Engaged: </label>
+        <input type="date" id="last_engaged" name="last_engaged" value="" />
+
+        <label for="bio">About: </label>
+        <input type="text" id="bio" name="bio" value="" />
+        <br /><br />
+
+        <input type="submit" name="add" value="Add" />
+      </form>
+    </div>
+
+    <h1>
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %} {{ message }} {% endfor %} {% endif %} {% endwith
+      %}
+    </h1>
+    <script>
+      function newSpeaker(){
+          var new_speaker = document.getElementById("new_speaker");
+          if (new_speaker.checked === true){
+              document.getElementById("row2").style.display = 'block';
+              document.getElementById("fname").style.display = 'block';
+              document.getElementById("lname").style.display = 'block';
+              console.log(new_speaker.checked);
+              newSpeaker2.value = "yes";
+              console.log(newSpeaker2.value);
+              email.value = "";
+              job_title.value = "";
+              rating.value = "0";
+              gender.value = "";
+              twitter.value = "";
+              linkedin.value = "";
+              contact_owner.value = "";
+              var today = new Date();
+              var dd = today.getDate();
+              var mm = today.getMonth() + 1;
+              var yyyy = today.getFullYear();
+              if (dd < 10) {
+                  dd = '0' + dd;
+              }
+              if (mm < 10) {
+                  mm = '0' + mm;
+              }
+              var today = yyyy + '-' + mm + '-' + dd;
+              last_engaged.value = today;
+          }
+
+      }
+
+
+      function myFunc(data){
+          //console.log(data);
+          var input = document.getElementById("Sname");
+          var value = input.value;
+          //console.log(input);
+
+
+          var searchField = "id";
+          for (var i=0 ; i < data.length ; i++)
+          {
+              var personal_info = document.getElementById("row2");
+              var style = input.style.display
+              //console.log(style)
+              if (style === '') {
+                  document.getElementById("row2").style = 'block';
+              }
+              if (data[i][searchField] == value) {
+                  //console.log(data[i].properties.jobtitle);
+                  //hubspotid.value = data[i][searchField];
+                  fname.value = data[i].properties.firstname;
+                  lname.value = data[i].properties.lastname;
+                  email.value = data[i].properties.email;
+                  console.log(data[i][searchField]);
+                  job_title.value = data[i].properties.jobtitle;;
+                  gender.value = data[i].properties.gender;
+                  twitter.value = data[i].properties.twitterhandle;
+                  linkedin.value = data[i].properties.linkedin_person_;
+                  contact_owner.value = data[i].properties.hubspot_owner_id;
+                  var strDate = data[i].properties.lastmodifieddate.substring(0, 10);
+                  last_engaged.value = strDate;
+              }
+                  else if(value === '?'){
+                          document.getElementById("row2").style.display = 'none';
+                      }
+          }
+
+      }
+
+
+      function dropdownOnChange(){
+          //console.log('dropdownOnChange');
+          {% if speaker_details is defined and speaker_details %}
+              var myVar = myFunc({{ speaker_details | tojson }});
+          {% endif %}
+      }
+    </script>
+    <a href="./">Return to list</a>
+  </body>
+</html>
